@@ -1,0 +1,163 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            font-size: 75px;
+        }
+        .square:hover{
+            color: #fff; 
+            background-color: #e3e5e6;
+        }
+        .turn{
+            width: 200px;
+            height: 50px;
+            background-color: #e3e5e6;
+            border: 2px solid #000;
+            position: fixed;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            display: flex; /* Enable flexbox layout */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+        .startOver{
+            width: 200px;
+            height: 50px;
+            background-color: #12cc53;
+            border: 2px solid #000;
+            position: fixed;
+            left: 50%;
+            top: 80%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+        .startOver:hover{
+            background-color: #92d2a9;
+        }
+    
+    </style>
+
+    <script>
+        const NUM_SQUARES = 9;
+        currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
+        moves = new Array(NUM_SQUARES).fill('-');
+        const winConditions = ["012", "345", "678", "036", "147", "258", "048", "246"];
+        gameOver = false;
+
+        function buttonClick(n) {
+            let square = document.getElementById("sq" + n);
+            if (!square.innerHTML && !gameOver) {
+                square.innerHTML = currentPlayer;
+
+                updateMoves();
+                checkGame();
+                console.log(gameOver);
+                if (!gameOver) {
+                    currentPlayer = (currentPlayer === 'X') ? 'O' : 'X'; 
+                    changePlayer();
+                }
+            }            
+        }
+
+        function checkGame() {
+            for (const condition of winConditions) {
+                // splits the indices of what would make a win 
+                const [a, b, c] = condition.split('').map(Number)
+                if (moves[a] === moves[b] && moves[b] === moves[c] && 
+                    (moves[a] === 'X' || moves[a] === 'O')) {
+                    //turn.textContent = moves[a] + " wins!"; 
+
+                    winner = document.querySelector('.turn p');
+                    winner.innerHTML = "Player " + currentPlayer + " wins!!!";
+                    gameOver = true; 
+                }
+            }
+
+            // Check for stalemate
+            if (!moves.includes('-')) {
+                tie = document.querySelector('.turn p');
+                tie.textContent = "It's a tie!";
+                gameOver = true;
+            }
+            
+            
+        }
+
+        function changePlayer() {
+            change = document.querySelector('.turn p');
+            change.innerHTML = "Player " + currentPlayer + "'s turn";
+        }
+
+        function restart() {
+            for (i = 0; i < NUM_SQUARES; i++) {
+                let square = document.getElementById("sq" + i);
+                square.innerHTML = '';
+            }
+            moves.fill('-');
+            gameOver = false;
+            currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+            changePlayer();
+        }
+
+        function updateMoves() {
+            // square = document.getElementById("sq" + i);
+            // square.forEach((square, index) => {
+            // moves[index] = square.innerHTML || '-'})
+
+            const squares = document.querySelectorAll('.square');  // Select all squares
+            squares.forEach((square, index) => {
+                moves[index] = square.innerHTML || '-';  // Update moves array
+            });
+        }
+
+    </script>
+</head>
+<body style="text-align: center;">
+<h1>Let's Play Tic Tac Toe!</h1>
+
+    <div class="turn"><p></p></div>
+
+    <div class="board">
+        <script>
+            for (i = 0; i < NUM_SQUARES; i++){
+                id = "sq" + i;
+                document.write( "<div class='square' id='" + id + "'></div>" );                    
+            }
+                
+            window.onload = function() {
+                for (let i = 0; i < NUM_SQUARES; i++) {
+                    let square = document.getElementById("sq" + i);
+                    square.onclick = function() { buttonClick(i)};
+                }
+                //prints original player
+                changePlayer();
+
+                newGame = document.querySelector('.startOver');
+                newGame.onclick = restart;
+            };
+        </script>
+    </div>
+
+    <button class="startOver">Play Again :)</button>
+
+</body>
+</html>
