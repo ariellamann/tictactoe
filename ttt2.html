@@ -1,0 +1,84 @@
+<html>
+<head>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            font-size: 75px;
+        }
+        .square:hover{
+            color: #fff; 
+            background-color: #56aac4;
+        }
+        .turn{
+            width: 200px;
+            height: 50px;
+            background-color: #abafb0;
+            border: 2px solid #000;
+            position: fixed;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%, -50%);
+        }
+        .winner{
+            width: 200px;
+            height: 50px;
+            background-color: #12cc53;
+            border: 2px solid #000;
+            position: fixed;
+            left: 50%;
+            top: 80%;
+            transform: translate(-50%, -50%);
+        }
+    
+    </style>
+
+    <script>
+    </script>
+</head>
+<body style="text-align: center;">
+<h1 >Let's Play Tic Tac Toe!</h1>
+
+    <div class="turn">
+        <p>X's turn</p>
+    </div>
+
+    <div class="board">
+        <script>
+            const NUM_SQUARES = 9;
+                for (i = 0; i < NUM_SQUARES; i++){
+                    id = "sq" + i;
+                    if (i == 2) {
+                        document.write( "<div class='square' id='" + id + "'>X</div>" );
+                    } else if(i == 3) {
+                        document.write( "<div class='square' id='" + id + "'>O</div>" );
+                    } else {
+                        document.write( "<div class='square' id='" + id + "'></div>" );
+                    }
+                    
+                }
+        </script>
+    </div>
+
+    <div class="winner">
+        <p>X won!!!</p>
+    </div>
+
+
+</body>
+</html>

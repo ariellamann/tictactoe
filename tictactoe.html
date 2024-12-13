@@ -1,0 +1,42 @@
+<html>
+<head>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            
+        }
+        .square:hover{
+            color: #fff; 
+            background-color: #56aac4;
+        }
+    </style>
+</head>
+<body>
+<h1>Let's Play Tic Tac Toe!</h1>
+
+<div class="board">
+    <div class="square" id="square1"> <h1>X</h1> </div>
+    <div class="square" id="square2"></div>
+    <div class="square" id="square3"> <h1>O</h1> </div>
+    <div class="square" id="square4"></div>
+    <div class="square" id="square5"> <h1>X</h1> </div>
+    <div class="square" id="square6"> <h1>O</h1> </div>
+    <div class="square" id="square7"></div>
+    <div class="square" id="square8"></div>
+    <div class="square" id="square9"> <h1>O</h1> </div>
+</div>
+
+</body>
+</html>
